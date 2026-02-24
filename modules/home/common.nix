@@ -38,7 +38,7 @@
   programs.git = {
     enable = true;
     userName  = "taya";
-    userEmail = ""; # fill in your email
+    userEmail = "taya@taya.net";
     extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;

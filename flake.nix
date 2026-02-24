@@ -35,15 +35,19 @@
             useGlobalPkgs    = true;
             useUserPackages  = true;
             extraSpecialArgs = { inherit hyprland; };
-            users.taya       = import ./hosts/${hostname}/home.nix;
+            users.taya.imports = [
+              ./modules/home/common.nix
+              ./modules/home/desktop/hyprland.nix
+            ];
           };
         }
       ] ++ extraModules;
     };
   in {
-    nixosConfigurations = {
-      workstation = mkHost "workstation" [];
-      laptop      = mkHost "laptop"      [];
+    nixosConfigurations =
+      lib.mapAttrs (host: _: mkHost host [])
+        (lib.filterAttrs (_: t: t == "directory") (builtins.readDir ./hosts))
+      // {
 
       installer = nixpkgs.lib.nixosSystem {
         inherit system;

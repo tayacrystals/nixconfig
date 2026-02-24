@@ -23,7 +23,7 @@
   };
 
   # Locale & time
-  time.timeZone = "America/New_York"; # change to your timezone
+  time.timeZone = "Europe/Zurich";
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Networking

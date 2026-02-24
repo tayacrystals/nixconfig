@@ -46,17 +46,14 @@
     };
   };
 
-  # Each specialisation becomes a separate GRUB menu entry in the ISO
-  specialisation = {
-    "install-workstation".configuration = {
-      isoImage.appendToMenuLabel = lib.mkForce " \u2192 Install workstation";
-      boot.kernelParams = lib.mkAfter [ "nixos-install.target=workstation" ];
+  # Each specialisation becomes a separate GRUB menu entry in the ISO.
+  # Automatically derived from subdirectories of ../hosts/.
+  specialisation = lib.mapAttrs' (host: _: {
+    name  = "install-${host}";
+    value.configuration = {
+      isoImage.appendToMenuLabel = lib.mkForce " \u2192 Install ${host}";
+      boot.kernelParams = lib.mkAfter [ "nixos-install.target=${host}" ];
       systemd.services.nixos-auto-install.wantedBy = [ "multi-user.target" ];
     };
-    "install-laptop".configuration = {
-      isoImage.appendToMenuLabel = lib.mkForce " \u2192 Install laptop";
-      boot.kernelParams = lib.mkAfter [ "nixos-install.target=laptop" ];
-      systemd.services.nixos-auto-install.wantedBy = [ "multi-user.target" ];
-    };
-  };
+  }) (lib.filterAttrs (_: type: type == "directory") (builtins.readDir ../hosts));
 }

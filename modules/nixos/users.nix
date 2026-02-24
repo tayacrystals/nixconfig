@@ -9,5 +9,5 @@
   };
 
   # Allow sudo without password for wheel (optional — remove if you prefer password)
-  security.sudo.wheelNeedsPassword = true;
+  security.sudo.wheelNeedsPassword = false;
 }

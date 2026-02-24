@@ -12,15 +12,15 @@
 
   # Workstation-specific: no power management needed
   # Add your GPU driver below:
-  # services.xserver.videoDrivers = [ "nvidia" ]; # or "amdgpu", "intel"
+  services.xserver.videoDrivers = [ "nvidia" ]; # or "amdgpu", "intel"
 
   # If using Nvidia:
-  # hardware.nvidia = {
-  #   modesetting.enable = true;
-  #   powerManagement.enable = false;
-  #   open = false;
-  #   nvidiaSettings = true;
-  # };
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    open = false;
+    nvidiaSettings = true;
+  };
 
   # Larger swapfile is fine on a desktop
   # swapDevices = [{ device = "/var/lib/swapfile"; size = 16 * 1024; }];
