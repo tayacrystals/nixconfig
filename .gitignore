@@ -1,0 +1,7 @@
+# Nix build artifacts
+result
+result-*
+
+# Editor dirs
+.direnv/
+.envrc
